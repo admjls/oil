@@ -28,7 +28,7 @@ class LibcTest(unittest.TestCase):
         ('\?', '?', 1),
         ('\\\\', '\\', 1),
         # What is another error?  Invalid escape is OK?
-        ('\\', '\\', 0),  # no pattern is valid
+        (r'\\', r'\\', 0),  # no pattern is valid
 
         ('[[:alpha:]]', 'a', 1),
         ('[^[:alpha:]]', 'a', 0),  # negate
@@ -57,7 +57,7 @@ class LibcTest(unittest.TestCase):
     self.assertEqual(True, libc.regex_parse(r'.*\.py'))
     self.assertEqual(False, libc.regex_parse(r'*'))
     self.assertEqual(False, libc.regex_parse('\\'))
-    self.assertEqual(False, libc.regex_parse('{'))
+    self.assertEqual(True, libc.regex_parse('{'))
 
     cases = [
         (r'.*\.py', 'foo.py', True),
